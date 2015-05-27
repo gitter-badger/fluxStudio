@@ -8,32 +8,42 @@ var gulp  = require('gulp'),
 
 
 
-module.exports = function(then,watch){
+module.exports = function(then,debug){
   var t=null;
   gulp.task('serverBuild', function () {
     return gulp.src('app/**/*.js')
                .pipe(babel())
-               .pipe(jsx())
+              // .pipe(jsx())
                .pipe(gulp.dest('build'))
                .pipe(gcb(function(){
 
-                  console.log('rebuilding server app');
-                  if(t){clearTimeout(t)}
-                  t=setTimeout(then,300);
-              
-               }));
+                 console.log('rebuilding server app');
+                 if(t){clearTimeout(t)}
+                 t=setTimeout(then,300);
+
+                }));
   });
 
-  gulp.task('lint',function(){
-    return gulp.src('build/**/*.js')
-      .pipe(jshint({esnext:1,node:1}))
-      .pipe(jshint.reporter('default'));
-  });
+  if(debug){
+    gulp.task('lintServer',function(){
+    return gulp.src('app/**/*.js')
+               .pipe(babel()) //not efficient...
+               .pipe(jshint({esnext:1,node:1}))
+               .pipe(jshint.reporter('default'));
+    });
 
-  gulp.start();
-  if(watch){
-    gulp.watch('app/**/*.js',['serverBuild']);
+    gulp.task('lintClient',function(){
+      return gulp.src('public/build/**/*.js')
+                 .pipe(babel())
+                 .pipe(jshint({esnext:1}))
+                 .pipe(jshint.reporter('default'));
+    });
   }
 
-};
+
+    gulp.start();
+    if(debug){
+      gulp.watch('app/**/*.js',['serverBuild']);
+    }
+  };
 

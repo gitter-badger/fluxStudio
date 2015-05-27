@@ -6,7 +6,6 @@ class test{
   
 };
 
-
 var x=(<a></a>);
 
 console.log(test);
