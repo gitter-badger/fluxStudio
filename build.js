@@ -8,7 +8,7 @@ var gulp  = require('gulp'),
 
 
 
-module.exports = function(then,debug){
+var build = function build(then,debug,watch){
   var t=null;
   gulp.task('serverBuild', function () {
     return gulp.src('app/**/*.js')
@@ -41,9 +41,15 @@ module.exports = function(then,debug){
   }
 
 
-    gulp.start();
-    if(debug){
-      gulp.watch('app/**/*.js',['serverBuild']);
-    }
-  };
+  gulp.start();
+  if(watch){
+    gulp.watch('app/**/*.js',['serverBuild']);
+  }
+}
 
+
+if (!module.parent) {
+  build(function(){},1,0);
+}
+
+module.exports = build;

@@ -1,9 +1,17 @@
 {
-  "name": "evCities",
-  "version": "0.0.0",
+  "name": "node-rad-kit",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "ci.js",
   "scripts": {
+    "start-dev": "node ci ",
+    "start": "NODE_ENV=production node ci",
+    "build-server": "node build > build.log",
+    "build-client": "NODE_ENV=production webpack -p --config webpack.production.config.js",
+    "build": "npm run build-client && npm run build-server",    
+    "clean-server":"rm -rf build/*",
+    "clean-client":"rm -rf public/build/*",
+    "clean":"npm run clean-server && npm run clean-client", 
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Gaetano Checinski",

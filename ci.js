@@ -39,7 +39,7 @@ app.listen(port, function () {
 require('./build')(function(){
   var appMain=require('./build/app');
   appMain(app,port);
-},!isProduction);
+},!isProduction,!isProduction);
 
 
 
