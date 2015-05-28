@@ -26,6 +26,7 @@ var config = {
     loaders: [{
       test: /\.js$/,
       loader: 'babel',
+      query:{ optional:['es7'] },
       exclude: [nodeModulesPath]
     }, {
       test: /\.css$/,
