@@ -19,7 +19,6 @@ if (!isProduction) {
 
   require('./bundler')();
   app.all('/build/*', function (req, res) {
-    console.log('proxy...');
     proxy.web(req, res, {
         target: 'http://localhost:8080'
     });

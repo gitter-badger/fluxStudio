@@ -25,7 +25,10 @@ app.registerAction('inc',function(state){
   state.set('inc',state.get('inc')+1); 
 });
 
-app.inject=use.rootInjector(app.state);
+app.inject=use.combined([
+    use.rootInjector(app.state),
+    use.contextInjector({app:app})
+]);
 
 
 app.action=((name,data)=>
@@ -42,9 +45,9 @@ class App2 extends React.Component {
 };
 
 
-@app.inject
 @use.pure
 @use.contextInjector( {app:app} )
+@app.inject
 class App extends React.Component {
   render(){
     return <App2/>

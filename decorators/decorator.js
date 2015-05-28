@@ -92,6 +92,12 @@ dec.facets=function facets(obj){
   return dec.facets({facets:obj});
 };
 
+
+dec.combined=function combined(decs){
+  return (x)=> decs.reduceRight( ((a,b)=>b(a)) , x );
+};
+
+
 dec.app=dec.getContext(['app']);
 
 module.exports=dec;
