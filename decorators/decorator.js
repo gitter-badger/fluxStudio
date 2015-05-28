@@ -19,7 +19,7 @@ dec.rootInjector=function rootInjector(state){
   };
 };
 
-dec.branchInjector=function branchInjector(obj){
+dec.branch=function branchInjector(obj){
   return function(comp){
     return branch(comp,obj);
   };
@@ -36,6 +36,26 @@ dec.linkedState=function linkedState(comp){
   comp.mixins.push(React.linkedStateMixin);
   return comp;  
 };
+
+dec.commitAfter=function commitAfter(action){
+  var that=this;
+  return function(state){
+    setTimeout(state.commit.bind(state));
+    return action.apply(that,arguments);
+  };
+};
+
+dec.cursors=function cursors(obj){
+  return dec.branch({cursors:obj});
+};
+
+dec.facets=function facets(obj){
+  return dec.facets({facets:obj});
+};
+
+dec.app=dec.cursors({app:['app']});
+
+dec.action=dec.cursors({action:['app','action']});
 
 module.exports=dec;
 
