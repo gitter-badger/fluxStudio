@@ -8,7 +8,7 @@ var proxy = httpProxy.createProxyServer({
 }); 
 
 var app = express();
-var port = isProduction ? 8080 : 3000;
+var port = 3000;
 var publicPath = path.resolve(__dirname, 'public');
 
 app.use(express.static(publicPath));
@@ -39,6 +39,14 @@ require('./build')(function(){
   var appMain=require('./build/app');
   appMain(app,port);
 },!isProduction,!isProduction);
+
+
+
+
+
+
+
+
 
 
 

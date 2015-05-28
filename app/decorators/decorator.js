@@ -46,7 +46,6 @@ dec.mixins = function mixins(mix){
     return (class ComposedClass extends comp { 
       constructor(props,context){
         super(props,context);
-
         mix.forEach((m)=>{
           for(let k in m){
             this[k]=m[k];

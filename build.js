@@ -11,7 +11,7 @@ var gulp  = require('gulp'),
 var build = function build(then,debug,watch){
   var t=null;
   gulp.task('serverBuild', function () {
-    return gulp.src('app/**/*.js')
+    return gulp.src(['app/**/*.js','!app/assets/**/*.js'])
                .pipe(babel({stage:0}))
               // .pipe(jsx())
                .pipe(gulp.dest('build'))
@@ -26,18 +26,18 @@ var build = function build(then,debug,watch){
 
   if(debug){
     gulp.task('lintServer',function(){
-    return gulp.src('app/**/*.js')
+    return gulp.src(['app/**/*.js','!app/assets/**/*.js'])
                .pipe(babel({stage:0})) //not efficient...
                .pipe(jshint({esnext:1,node:1}))
                .pipe(jshint.reporter('default'));
     });
-
+/*
     gulp.task('lintClient',function(){
-      return gulp.src('public/build/**/*.js')
+      return gulp.src(['app/assets/***./*.js'])
                  .pipe(babel({stage:0}))
-                 .pipe(jshint({esnext:1}))
+                 .pipe(jshint({esnext:1,browser:1,devel:1}))
                  .pipe(jshint.reporter('default'));
-    });
+    });*/
   }
 
 
