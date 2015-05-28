@@ -19,7 +19,7 @@ var build = function build(then,debug,watch){
 
                  console.log('rebuilding server app');
                  if(t){clearTimeout(t)}
-                 t=setTimeout(then,300);
+                 t=setTimeout(then,2000);
 
                 }));
   });

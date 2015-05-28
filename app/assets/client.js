@@ -89,16 +89,19 @@ class WithContext extends React.Component {
   }
 }
 
-@app.inject
-class Context extends React.Component {
-  render(){
-    return <WithContext {...this.props} >{this.props.children}</WithContext>
-  }
-}
+var ContextWrapper=(contextInjector)=>
+  contextInjector(
+    class Context extends React.Component {
+    render(){
+      return <WithContext {...this.props} >{this.props.children}</WithContext>
+    }
+  })
+
+
+var Context = ContextWrapper(app.inject);
 
 app.event.on('dom:load',function(){
   Router.run( Routes ,Router.HistoryLocation,function(Root, state) {
-
     React.render(<Context><Root {...state} /></Context>, document.body);
   });
 });
