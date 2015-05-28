@@ -5,14 +5,14 @@ import React  from 'react/addons'
 import use    from './decorators/decorator'
 
 var app={};
+window.app=app;
+
 app.event = new emmett();
 
 app.state = baobab({
   msg:'hello',
-  inc:1,
-  app:app
+  inc:1
 });
-
 
 
 app.registerAction = function(name,func){
@@ -26,27 +26,30 @@ app.registerAction('inc',function(state){
 });
 
 app.inject=use.rootInjector(app.state);
+
+
 app.action=((name,data)=>
   app.event.emit.bind(app.event,name,{state:app.state,app:app,data:data})
 );
 
-
-@use.pure
-@use.action
-@use.cursors({'msg':['msg'],'inc':['inc']})
+@use.cursors({'msg':['msg']})
+@use.cursors({'inc':['inc']})
+@use.getContext(['app'])
 class App2 extends React.Component {
   render(){
-    return (<div> <h1>{this.props.msg}</h1> <button onClick={ this.props.action('inc') }>{this.props.inc}</button> </div>);
+    return (<div> <h1>{this.props.msg}</h1> <button onClick={ this.props.app.action('inc') }>{this.props.inc}</button> </div>);
   }
 };
 
+
 @app.inject
+@use.pure
+@use.contextInjector( {app:app} )
 class App extends React.Component {
   render(){
     return <App2/>
   }
 };
-
 
 
 setTimeout(()=>{ app.state.set('msg','world'); },1000);
