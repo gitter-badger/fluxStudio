@@ -1,21 +1,30 @@
-var gulp  = require('gulp'),
-    babel = require('gulp-babel'),
-    less  = require('gulp-less'),
-    jsx   = require('gulp-react'),
-    gcb   = require('gulp-callback'),
-    jshint= require('gulp-jshint');
+var gulp    = require('gulp'),
+    babel   = require('gulp-babel'),
+    less    = require('gulp-less'),
+    jsx     = require('gulp-react'),
+    jshint  = require('gulp-jshint'),
+    webpack = require('gulp-webpack'),
+    named   = require('vinyl-named');
 
 
 
 
 var build = function build(then,debug,watch){
-  var t=null;
+
   gulp.task('serverBuild', function () {
     return gulp.src(['app/**/*.js','!app/assets/**/*.js'])
                .pipe(babel({stage:0}))
                .pipe(gulp.dest('build'));
   });
 
+  if(!debug){
+    gulp.task("clientBuild", function() {
+        return gulp.src('app/assets/**/*.js')
+            .pipe(named())
+            .pipe(webpack(require('./config/webpack.production.config.js')))
+            .pipe(gulp.dest('public/build'));
+    });
+  }
 
   gulp.task('runServer',['serverBuild'],then);
 

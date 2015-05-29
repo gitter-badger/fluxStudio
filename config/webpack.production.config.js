@@ -6,13 +6,12 @@ var mainPath = path.resolve(__dirname,  'app','assets','client.js');
 
 var config = {
 
-  // We change to normal source mapping
-  devtool: 'source-map',
-  entry: mainPath,
-  output: {
+ // devtool: 'source-map',
+ // entry: mainPath,
+ /* output: {
     path: buildPath,
     filename: 'bundle.js'
-  },
+  },*/
   module: {
     loaders: [{
       test: /\.js$/,

@@ -13,7 +13,7 @@ class About extends React.Component {
 
 class Inbox extends React.Component { 
   render () {
-    return <h2>Inbox</h2>
+    return <h2>Inbox2</h2>
   }
 }
 

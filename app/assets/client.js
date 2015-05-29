@@ -5,6 +5,7 @@ import React  from 'react/addons'
 import use    from '../decorators/decorator'
 import Routes from '../routes'
 import Router from 'react-router'
+import {Root} from 'baobab-react/wrappers'
 
 var app={};
 window.app=app;
@@ -13,7 +14,8 @@ app.event = new emmett();
 
 app.state = baobab({
   msg:'hello',
-  inc:1
+  inc:1,
+  app:app
 });
 
 
@@ -27,10 +29,12 @@ app.registerAction('inc',function(state){
   state.set('inc',state.get('inc')+1); 
 });
 
+/*
 app.inject=use.combined([
     use.rootInjector(app.state),
     use.contextInjector({app:app})
 ]);
+
 
 app.wrap=(Comp)=>{
   return @app.inject
@@ -65,43 +69,16 @@ class App extends React.Component {
     return <App2/>
   }
 };
-
+*/
 
 setTimeout(()=>{ app.state.set('msg','world'); },1000);
 
 document.addEventListener("DOMContentLoaded",  app.event.emit.bind(app.event,'dom:load') );
 
 
-@app.inject
-
-
-class WithContext extends React.Component {
-  render(){
-    var self = this;
-    var children = React.Children.map(
-      this.props.children, 
-      (child)=>
-        React.addons.cloneWithProps(child, { 
-          parentValue: self.props.parentValue 
-        })                
-    );
-    return (<div {...this.props} > { children } </div>) ;
-  }
-}
-
-var ContextWrapper=(contextInjector)=>
-  contextInjector(
-    class Context extends React.Component {
-    render(){
-      return <WithContext {...this.props} >{this.props.children}</WithContext>
-    }
-  })
-
-
-var Context = ContextWrapper(app.inject);
 
 app.event.on('dom:load',function(){
-  Router.run( Routes ,Router.HistoryLocation,function(Root, state) {
-    React.render(<Context><Root {...state} /></Context>, document.body);
+  Router.run( Routes ,Router.HistoryLocation,function(App, state) {
+    React.render(<Root tree={app.state}><App {...state} /></Root>, document.body);
   });
 });

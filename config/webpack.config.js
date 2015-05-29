@@ -1,12 +1,12 @@
 var Webpack = require('webpack');
 var path = require('path');
-var appPath = path.resolve(__dirname, '.');
+var appPath = path.resolve(__dirname, '..');
 
-var nodeModulesPath = path.resolve(__dirname, 'node_modules');
+var nodeModulesPath = path.resolve(__dirname,'..', 'node_modules');
 var buildPath = path.resolve(__dirname, 'public', 'build');
 var publicPath = path.resolve(appPath, 'app','assets');
 var assetsPath = path.resolve(publicPath,'client.js');
-console.log(assetsPath);
+console.log(assetsPath,nodeModulesPath );
 
 var config = {
   context: __dirname,
@@ -14,7 +14,7 @@ var config = {
   entry: [
     'webpack-dev-server/client?http://localhost:8080', 
     'webpack/hot/dev-server', 
-    assetsPath
+     assetsPath
   ],
   output: {
     path: buildPath,
