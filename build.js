@@ -13,16 +13,12 @@ var build = function build(then,debug,watch){
   gulp.task('serverBuild', function () {
     return gulp.src(['app/**/*.js','!app/assets/**/*.js'])
                .pipe(babel({stage:0}))
-              // .pipe(jsx())
-               .pipe(gulp.dest('build'))
-               .pipe(gcb(function(){
-
-                 console.log('rebuilding server app');
-                 if(t){clearTimeout(t)}
-                 t=setTimeout(then,2000);
-
-                }));
+               .pipe(gulp.dest('build'));
   });
+
+
+  gulp.task('runServer',['serverBuild'],then);
+
 
   if(debug){
     gulp.task('lintServer',function(){
