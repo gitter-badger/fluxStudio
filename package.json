@@ -35,6 +35,7 @@
     "gulp-jsxhint": "0.0.1",
     "gulp-less": "^3.0.3",
     "gulp-react": "^3.0.1",
+    "hotswap": "^1.1.0",
     "http-proxy": "^1.11.1",
     "jshint": "^2.7.0",
     "less": "^2.5.1",

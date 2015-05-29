@@ -10,13 +10,7 @@ class About extends React.Component {
   }
 }
 
-
-class Inbox extends React.Component { 
-  render () {
-    return <h2>Inbox2</h2>
-  }
-}
-
+import Inbox from './views/app'
 
 class App extends React.Component { 
   render () {

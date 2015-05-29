@@ -7,6 +7,7 @@ import Routes from '../routes'
 import Router from 'react-router'
 import {Root} from 'baobab-react/wrappers'
 
+
 var app={};
 window.app=app;
 
