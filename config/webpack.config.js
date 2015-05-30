@@ -6,7 +6,7 @@ var nodeModulesPath = path.resolve(__dirname,'..', 'node_modules');
 var buildPath = path.resolve(__dirname, 'public', 'build');
 var publicPath = path.resolve(appPath, 'app','assets');
 var assetsPath = path.resolve(publicPath,'client.js');
-console.log(assetsPath,nodeModulesPath );
+
 
 var config = {
   context: __dirname,
@@ -19,7 +19,7 @@ var config = {
   output: {
     path: buildPath,
     filename: 'bundle.js',
-    publicPath: '/build/bundle.js'
+    publicPath: '/build/'
   },
   module: {
     loaders: [{

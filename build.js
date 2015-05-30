@@ -5,17 +5,17 @@ var gulp    = require('gulp'),
     jshint  = require('gulp-jshint'),
     webpack = require('gulp-webpack'),
     inject  = require('gulp-inject-string'),
-    named   = require('vinyl-named');
-
-
-
+    named   = require('vinyl-named'),
+    sourcemaps = require('gulp-sourcemaps');
 
 var build = function build(then,debug,watch){
 
   gulp.task('serverBuild', function () {
     return gulp.src(['app/**/*.js','!app/assets/**/*.js'])
-               .pipe(babel({stage:0}))
-               .pipe(inject.prepend('module.change_code=1;\n'))
+               .pipe(sourcemaps.init())
+                 .pipe(babel({stage:0}))
+                 .pipe(inject.prepend('module.change_code=1;\n'))
+               .pipe(sourcemaps.write('./maps'))
                .pipe(gulp.dest('build'));
   });
 
