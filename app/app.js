@@ -1,17 +1,22 @@
-import service from './reactService' 
+import extend from 'extend'
 
-var s=service(app);
+
 export default (app,port) => {
-
-  app.use(function(a,b,c){ return s(a,b,c); });
-
+  module.app=app;
+  module.middleware = require('./reactService')(app);
+  app.use(module.middleware);
 };
 
-module.change_code = ()=>{
-  var name = require.resolve('./routes');
-  delete require.cache[name];
-  s=service(app);
-};
-
+module.change_code=(o,n)=>{
+  console.log(!!o.app,!!n.app);
+  var stack=o.app._router.stack;
+  for( var i=0; i<stack.length;++i ){
+    if(stack[i].handle==o.middleware){
+      o.middleware = require('./reactService')(o.app);
+      stack[i].handle = o.middleware;
+    }
+  }
+  extend(n,o);
+}
 
 

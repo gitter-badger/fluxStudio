@@ -4,6 +4,7 @@ var gulp    = require('gulp'),
     jsx     = require('gulp-react'),
     jshint  = require('gulp-jshint'),
     webpack = require('gulp-webpack'),
+    inject  = require('gulp-inject-string'),
     named   = require('vinyl-named');
 
 
@@ -14,6 +15,7 @@ var build = function build(then,debug,watch){
   gulp.task('serverBuild', function () {
     return gulp.src(['app/**/*.js','!app/assets/**/*.js'])
                .pipe(babel({stage:0}))
+               .pipe(inject.prepend('module.change_code=1;\n'))
                .pipe(gulp.dest('build'));
   });
 
@@ -30,13 +32,14 @@ var build = function build(then,debug,watch){
 
 
   if(debug){
-    gulp.task('lintServer',function(){
-    return gulp.src(['app/**/*.js','!app/assets/**/*.js'])
+/* 
+  gulp.task('lintServer',function(){
+    return gulp.src(['app//*.js','!app/assets//.js'])
                .pipe(babel({stage:0})) //not efficient...
                .pipe(jshint({esnext:1,node:1}))
                .pipe(jshint.reporter('default'));
     });
-/*
+
     gulp.task('lintClient',function(){
       return gulp.src(['app/assets/***./*.js'])
                  .pipe(babel({stage:0}))

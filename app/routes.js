@@ -25,6 +25,8 @@ class App extends React.Component {
   }
 }
 
+
+
 var routes = (
   <Route name='c' path='/' handler={App}>
     <Route name='a' path="about" handler={About}/>

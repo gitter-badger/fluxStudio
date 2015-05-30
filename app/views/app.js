@@ -2,9 +2,7 @@ import React from 'react'
 
 export default class Inbox 
   extends React.Component { 
-  render () {
-    return <h3> Inbox95</h3>
+  render () { console.log(46);
+    return <h3> Inbox</h3>
   }
 }
-
-
