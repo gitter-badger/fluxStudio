@@ -6,7 +6,6 @@ import baobab from 'baobab'
 import {Root} from 'baobab-react/wrappers'
 import extend from 'extend'
 
-
 var tmpl   = fs.readFileSync('./app/html/index.html',{encoding:'utf8'});
 var Routes = require('./routes');
 
@@ -18,21 +17,34 @@ fs.watch('./app/html/index.html',()=>{
 });
 
 
+
 export default (app)=>{
 
-  app.state=new baobab({
-    msg:'hello',
-    inc:1,
-    app:app
+  app.action=((name,data) => function(){
+    return app.event.emit(name,{state:app.state,app:app,data:data,extra:arguments});
   });
 
-  
+  var defaultState=require('./defaultState.js');
+  var tree= new baobab(
+    extend({},defaultState,{
+      app:app
+    })
+  );
+
   return (req, res, next) => {
     try{
       let router = Router.create({location: req.url, routes:Routes})
       router.run((App, state)=>{
-        let html = React.renderToString(<Root tree={new baobab(app.state.get())}><App {...state} /></Root>); 
-        return res.end(tmpl.replace('REACT_HTML',html));
+        let comp = (<Root tree={tree}><App {...state} /></Root>);
+        let html = '';
+        try{
+          let x = React.renderToString(comp); 
+          html = x;
+        }catch(e){
+          console.log(e);
+        }finally{
+          return res.end(tmpl.replace('REACT_HTML',html));
+        }
       });
     }catch(e){
       next(e);
@@ -40,4 +52,3 @@ export default (app)=>{
   };
 }
 
-module.change_code=1;

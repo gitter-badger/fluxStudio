@@ -6,6 +6,8 @@ import use    from '../decorators/decorator'
 import Routes from '../routes'
 import Router from 'react-router'
 import {Root} from 'baobab-react/wrappers'
+import registerActions from '../actions.js'
+import extend from 'extend'
 
 
 var app={};
@@ -13,70 +15,28 @@ window.app=app;
 
 app.event = new emmett();
 
-app.state = baobab({
-  msg:'hello',
-  inc:1,
-  app:app
-});
-
-
 app.registerAction = function(name,func){
   return app.event.on(name,function(e){
-    return func.call(e,e.data.state, e.data.data, e.data.app) 
+    return func.call(e,e.data.state, e.data.data, e.data) 
   });
 };
 
-app.registerAction('inc',function(state){
-  state.set('inc',state.get('inc')+1); 
+app.action=((name,data) => function(){
+  return app.event.emit(name,{state:app.state,app:app,data:data,extra:arguments});
 });
 
-/*
-app.inject=use.combined([
-    use.rootInjector(app.state),
-    use.contextInjector({app:app})
-]);
+var defaultState=JSON.parse(localStorage.getItem('todo')) || require('../defaultState.js');
 
 
-app.wrap=(Comp)=>{
-  return @app.inject
-  class Wrapped {
-    render() {
-      return React.createElement(Comp,this.props);
-    } 
-  };
-
-};
-
-
-app.action=((name,data)=>
-  app.event.emit.bind(app.event,name,{state:app.state,app:app,data:data})
+app.state= new baobab(
+  extend(defaultState,{
+    app:app
+  })
 );
 
-@use.cursors({'msg':['msg']})
-@use.cursors({'inc':['inc']})
-@use.getContext(['app'])
-class App2 extends React.Component {
-  render(){
-    return (<div> <h1>{this.props.msg}</h1> <button onClick={ this.props.app.action('inc') }>{this.props.inc}</button> </div>);
-  }
-};
-
-
-@use.pure
-@use.contextInjector( {app:app} )
-@app.inject
-class App extends React.Component {
-  render(){
-    return <App2/>
-  }
-};
-*/
-
-setTimeout(()=>{ app.state.set('msg','world'); },1000);
+registerActions(app);
 
 document.addEventListener("DOMContentLoaded",  app.event.emit.bind(app.event,'dom:load') );
-
-
 
 app.event.on('dom:load',function(){
   Router.run( Routes ,Router.HistoryLocation,function(App, state) {
