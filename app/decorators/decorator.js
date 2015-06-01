@@ -69,7 +69,6 @@ dec.branch=function branchInjector(obj){
   };
 };
 
-
 dec.pure=dec.mixins([React.addons.PureRenderMixin]);
 dec.linkedState=dec.mixins([React.addons.LinkedStateMixin]);
 

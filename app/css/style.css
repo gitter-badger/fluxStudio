@@ -1,0 +1,62 @@
+.item-enter {
+  opacity: 0.01;
+  transition: opacity 0.5s ease-in, margin 0.5s ease;
+  margin-left:800px !important;
+}
+
+.item-enter.item-enter-active {
+  opacity: 1;
+  margin-left:0 !important;
+}
+
+
+.item-leave {
+  opacity: 1;
+  margin-left:0 !important;
+  transition: opacity 0.5s ease-in , margin 0.5s ease;
+}
+
+.item-leave.item-leave-active {
+  opacity: 0;
+  margin-left:800px !important;
+}
+
+
+.todo{
+  display:inline-block;
+
+
+
+  button {
+    background:white;
+    border:solid 1px lightblue;
+    border-radius:5px;
+  }
+
+}
+
+ul{
+  display:inline-block;
+  width:800px;
+}
+
+.item{
+  display:inline-block;
+  list-style:none;
+  width:400px;
+  background: lightblue;
+  border-radius:5px;
+  border:blue 1px solid;
+  margin: 5px 0;
+
+  
+
+  .remove{
+    visibility:hidden;
+    float:right;
+  }
+  &:hover .remove{
+      visibility:visible;
+  }
+  
+}

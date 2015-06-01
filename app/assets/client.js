@@ -1,3 +1,4 @@
+import '../css/style.css';
 import emmett from 'emmett'
 import baobab from 'baobab'
 
@@ -8,6 +9,7 @@ import Router from 'react-router'
 import {Root} from 'baobab-react/wrappers'
 import registerActions from '../actions.js'
 import extend from 'extend'
+
 
 
 var app={};
@@ -25,7 +27,7 @@ app.action=((name,data) => function(){
   return app.event.emit(name,{state:app.state,app:app,data:data,extra:arguments});
 });
 
-var defaultState=JSON.parse(localStorage.getItem('todo')) || require('../defaultState.js');
+var defaultState=(localStorage.getItem('todo') && JSON.parse(localStorage.getItem('todo'))) || require('../defaultState.js');
 
 
 app.state= new baobab(
@@ -33,6 +35,8 @@ app.state= new baobab(
     app:app
   })
 );
+
+app.state.select('todo').startRecording(100);
 
 registerActions(app);
 

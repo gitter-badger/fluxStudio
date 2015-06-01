@@ -1,9 +1,10 @@
 
-import React from 'react'
+import React from 'react/addons'
 import Router, {Route,DefaultRoute, Redirect, NotFoundRoute,RouteHandler,Link} from 'react-router'
 import use    from './decorators/decorator'
 import {Branch} from 'baobab-react/wrappers'
 import extend from 'extend'
+var Animate =  React.addons.CSSTransitionGroup;
 
 
 var StateToText={0:'-',1:'>',2:'+'};
@@ -12,11 +13,16 @@ var StateToText={0:'-',1:'>',2:'+'};
 class TodoEntry extends React.Component {
   render() {
     return ( 
-      <li>
+      <li className='item'>
         <button onClick={ this.props.action('todo:set:toggleEntry',this.props) } >   
           { StateToText[this.props.done] }
         </button>
         <span className="todo-title"> { this.props.title } </span>
+
+        <button className="remove" onClick={ this.props.action('todo:set:removeEntry',this.props) } >   
+          x
+        </button>
+
       </li>
     );
   }
@@ -37,6 +43,7 @@ class TodoAdd extends React.Component {
   render() {
     return ( 
       <div>
+        <button onClick={this.props.action('todo:set:reset')} > reset app </button>
         <input type="text" 
                valueLink={this.linkState('newEntry')} 
                placeholder="new Entry" /> 
@@ -55,9 +62,11 @@ class TodoList extends React.Component {
     return (
       <div>
         <ul> 
-          {(this.props.todo||[]).map( (e,i)=>
-            <TodoEntry {...e} key={e.index} />
-          )}
+          <Animate transitionName='item'>
+            {(this.props.todo||[]).map( (e,i)=>
+              <TodoEntry {...e} key={e.index} />
+            )}
+          </Animate>
         </ul>
       </div>
     );
@@ -86,14 +95,16 @@ var pathToFilter={
 class App extends React.Component { 
   render () {
     return (
-      <div>
+      <div className='todo'>
         <h1>ToDo-App</h1>
         <TodoAdd />
-        <div>
-          <Link to="/"> All </Link>
-          <Link to="/Done">Done</Link>
-          <Link to="/Working">Working</Link>
-          <Link to="/Undone">Undone</Link>
+        <div className='links'>
+          <span> Filter : </span>
+          <Link to="/"><button> All </button></Link>
+          <Link to="/Done"><button>Done(+)</button></Link>
+          <Link to="/Working"><button>Working({'>'})</button></Link>
+          <Link to="/Undone"><button>Undone(-)</button></Link>
+
         </div>
         <Todo  filterBy={pathToFilter[this.props.path]} />
       </div>
