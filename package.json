@@ -4,10 +4,10 @@
   "description": "",
   "main": "ci.js",
   "scripts": {
-    "start-dev": "node bootstrap ",
+    "dev": "node bootstrap",
     "start": "NODE_ENV=production node bootstrap",
-    "build-server": "node build > build.log",
-    "build-client": "NODE_ENV=production webpack -p --config config/webpack.production.config.js",
+    "build-server": "gulp server > build.log",
+    "build-client": "NODE_ENV=production webpack -p --config webpack.production.js",
     "build": "npm run build-client && npm run build-server",
     "clean-server": "rm -rf build/*",
     "clean-client": "rm -rf public/build/*",
@@ -31,6 +31,7 @@
     "gulp": "^3.8.11",
     "gulp-babel": "^5.1.0",
     "gulp-callback": "0.0.3",
+    "gulp-changed": "^1.2.1",
     "gulp-inject-string": "0.0.2",
     "gulp-jshint": "^1.11.0",
     "gulp-jsx": "^2.0.0",
@@ -54,5 +55,8 @@
     "vinyl-named": "^1.1.0",
     "webpack": "^1.9.10",
     "webpack-dev-server": "^1.9.0"
+  },
+  "devDependencies": {
+    "flow": "^0.2.3"
   }
 }

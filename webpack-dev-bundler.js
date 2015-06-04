@@ -2,15 +2,16 @@ var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var path = require('path');
 
-var webpackConfig = require('./config/webpack.config.js');
-var mainPath = path.resolve(__dirname, '.', 'client.js');
+var webpackConfig = require('./webpack.dev.js');
 
+var mainPath = path.resolve(__dirname, 'client.js');
 
-function bundleMaker() {
+var bundleMaker = function bundleMaker() {
 
   var bundleStart = null;
+
   var compiler = webpack(webpackConfig);
-  
+  console.log('setting up webpack-dev-server...');
   compiler.plugin('compile', function() {
     console.log('Bundling...');
     bundleStart = Date.now();
@@ -35,6 +36,7 @@ function bundleMaker() {
     console.log('Bundling project, please wait...');
   });
 
-};
+}
 
-module.exports=bundleMaker;
+module.exports = bundleMaker;
+

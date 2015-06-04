@@ -1,8 +1,8 @@
-var Webpack = require('webpack');
+var webpack = require('webpack');
 var path = require('path');
-var appPath = path.resolve(__dirname, '..');
+var appPath = path.resolve(__dirname);
 
-var nodeModulesPath = path.resolve(__dirname,'..', 'node_modules');
+var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var buildPath = path.resolve(__dirname, 'public', 'build');
 var publicPath = path.resolve(appPath, 'app','assets');
 var assetsPath = path.resolve(publicPath,'client.js');
@@ -10,16 +10,14 @@ var assetsPath = path.resolve(publicPath,'client.js');
 
 var config = {
   context: __dirname,
-  devtool: 'eval',
+  devtool: 'source-map',
   entry: [
-    'webpack-dev-server/client?http://localhost:8080', 
-    'webpack/hot/dev-server', 
      assetsPath
   ],
   output: {
     path: buildPath,
     filename: 'bundle.js',
-    publicPath: '/build/'
+    publicPath: 'build'
   },
   module: {
     loaders: [{
@@ -32,7 +30,7 @@ var config = {
       loader: 'style!css!less'
     }]
   },
-  plugins: [new Webpack.HotModuleReplacementPlugin()]
+  plugins: [new webpack.optimize.UglifyJsPlugin()]
 };
 
 module.exports = config;

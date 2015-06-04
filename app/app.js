@@ -1,14 +1,10 @@
 import extend from 'extend'
-import emmett from 'emmett'
 
-export default (app,port) => {
+import middleware from './reactMiddleware';
+
+export default (app) => {
   module.app=app;
-  module.middleware = require('./reactService')(app);
-
-  app.action=((name,data) => function(){
-    return app.event.emit(name,{state:app.state,app:app,data:data,extra:arguments});
-  });
-
+  module.middleware=require('./reactMiddleware'); //isn't there a better method?
   app.use(module.middleware);
 };
 
@@ -16,7 +12,7 @@ module.change_code=(o,n)=>{
   var stack=o.app._router.stack;
   for( var i=0; i<stack.length;++i ){
     if(stack[i].handle==o.middleware){
-      o.middleware = require('./reactService')(o.app);
+      o.middleware = require('./reactMiddleware');
       stack[i].handle = o.middleware;
     }
   }

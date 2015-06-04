@@ -1,25 +1,27 @@
 var Webpack = require('webpack');
 var path = require('path');
-var appPath = path.resolve(__dirname, '..');
+var appPath = path.resolve(__dirname);
 
 var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var buildPath = path.resolve(__dirname, 'public', 'build');
 var publicPath = path.resolve(appPath, 'app','assets');
 var assetsPath = path.resolve(publicPath,'client.js');
-console.log(assetsPath);
+
 
 var config = {
   context: __dirname,
   devtool: 'eval',
-  entry: [
-    'webpack-dev-server/client?http://localhost:8080', 
-    'webpack/hot/dev-server', 
-     assetsPath
-  ],
+  entry: {
+    bundle:[
+      'webpack-dev-server/client?http://localhost:8080', 
+      'webpack/hot/dev-server', 
+      assetsPath
+    ]
+  },
   output: {
     path: buildPath,
-    filename: 'bundle.js',
-    publicPath: '/build/bundle.js'
+    filename: '[name].js',
+    publicPath: '/build/'
   },
   module: {
     loaders: [{
