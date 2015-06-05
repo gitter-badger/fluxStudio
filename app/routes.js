@@ -87,9 +87,9 @@ class Todo extends React.Component {
 
 var pathToFilter={
  '/':-1,
- '/Undone':0,
- '/Working':1,
- '/Done':2
+ '/Undone/':0,
+ '/Working/':1,
+ '/Done/':2
 };
 
 class App extends React.Component { 
@@ -101,9 +101,9 @@ class App extends React.Component {
         <div className='links'>
           <span> Filter : </span>
           <Link to="/"><button> All </button></Link>
-          <Link to="/Done"><button>Done(+)</button></Link>
-          <Link to="/Working"><button>Working({'>'})</button></Link>
-          <Link to="/Undone"><button>Undone(-)</button></Link>
+          <Link to="/Done/"><button>Done(+)</button></Link>
+          <Link to="/Working/"><button>Working({'>'})</button></Link>
+          <Link to="/Undone/"><button>Undone(-)</button></Link>
 
         </div>
         <Todo  filterBy={pathToFilter[this.props.path]} />
@@ -115,9 +115,9 @@ class App extends React.Component {
 var routes = (
   <Route path='/' >
     <DefaultRoute  handler={App} />
-    <Route  path="Done"     handler={App}/>
-    <Route  path="Working"  handler={App}/>
-    <Route  path="Undone"   handler={App}/>
+    <Route  path="Done/"     handler={App}/>
+    <Route  path="Working/"  handler={App}/>
+    <Route  path="Undone/"   handler={App}/>
   </Route>
 );
 

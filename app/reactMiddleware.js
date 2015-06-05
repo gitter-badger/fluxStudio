@@ -49,7 +49,6 @@ function routeAndRender(url,Routes,cb){
 
 function reactMiddleware(req, res, next) {
 
-
   routeAndRender(req.url,Routes, (content,err)=>{
     if(err){
       next(err);

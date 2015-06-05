@@ -4,9 +4,9 @@ import middleware from './reactMiddleware';
 
 export default (app) => {
   module.app=app;
-  module.middleware=require('./reactMiddleware'); //isn't there a better method?
+  module.middleware=require('./reactMiddleware');
   app.use(module.middleware);
-};
+}
 
 module.change_code=(o,n)=>{
   var stack=o.app._router.stack;

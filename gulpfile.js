@@ -37,6 +37,31 @@ gulp.task("client", function() {
 });
 
 
+gulp.task("static", ['server'] , function() {
+
+  var ware = require('./build/app/reactMiddleware');
+  var fs   = require('fs');
+  var path = require('path');
+  var mkdirp   = require('mkdirp');
+  require('./staticFileBuilder')().forEach(function(url){
+
+    var content='';
+    var req ={url:'/'+url};
+    var file=url+((url!='')?'/':'')+'index.html';
+    var filePath = path.resolve(__dirname,'public',file);
+    var append=function(str){ content+=str };
+    var write =fs.writeFile.bind(fs,filePath);
+    console.log(path.dirname(filePath));
+    var end = function(str){ append(str); mkdirp(path.dirname(filePath),function(){write(content);}) };
+
+    var res = {send:append,end:end,set:function(){}};
+    var next = console.log.bind(console,'error building static file'+url);
+
+    ware(req,res,next);
+  });
+
+});
+
 gulp.task('lib', function () {
   var dest = 'build/lib';
   return gulp.src(['lib/**/*.js'])
