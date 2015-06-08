@@ -9,7 +9,16 @@ import path from 'path'
 import Routes from './routes';
 import defaultState from './defaultState';
 
-var htmlPath = path.resolve('app/html/index.html');
+
+if(process.env.NODE_ENV === 'production'){
+  var htmlPath = path.resolve('app/html/index.dev.html');
+}else{
+  var htmlPath = path.resolve('app/html/index.production.html');
+}
+
+
+
+
 var tmpl   = fs.readFileSync(htmlPath,{encoding:'utf8'});
 
 fs.watch(htmlPath, ()=>{
@@ -54,7 +63,7 @@ function reactMiddleware(req, res, next) {
       next(err);
     }else{
      res.set('Content-Type', 'text/html'); 
-     res.end(tmpl.replace('REACT_HTML',content));
+     res.end(tmpl.replace('REACT_CONTENT',content));
     }
   });
 }

@@ -41,6 +41,7 @@
     "gulp-react": "^3.0.1",
     "gulp-sourcemaps": "^1.5.2",
     "hotswap": "^1.1.0",
+    "html-webpack-plugin": "^1.5.0",
     "http-proxy": "^1.11.1",
     "jshint": "^2.7.0",
     "less": "^2.5.1",

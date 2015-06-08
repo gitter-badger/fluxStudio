@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded",  app.event.emit.bind(app.event,'do
 
 app.event.on('dom:load',function(){
   Router.run( Routes ,Router.HistoryLocation,function(App, state) {
-    React.render(<Root tree={app.state}><App {...state} /></Root>, document.body);
+
+    React.render(<Root tree={app.state}><App {...state} /></Root>, document.getElementById('react_content') );
   });
 });
