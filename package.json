@@ -1,5 +1,5 @@
 {
-  "name": "node-rad-kit",
+  "name": "fluxStudio",
   "version": "0.0.1",
   "description": "",
   "main": "ci.js",
@@ -61,5 +61,6 @@
   },
   "devDependencies": {
     "flow": "^0.2.3"
-  }
+  },
+  "git": "https://github.com/nikhedonia/fluxStudio.git"
 }
