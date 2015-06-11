@@ -9,6 +9,7 @@
     "build-server": "gulp server > build.log",
     "build-client": "NODE_ENV=production webpack -p --config webpack.production.js",
     "build": "npm run build-client && npm run build-server",
+    "static": "npm run build && gulp static",
     "clean-server": "rm -rf build/*",
     "clean-client": "rm -rf public/build/*",
     "clean": "npm run clean-server && npm run clean-client",
