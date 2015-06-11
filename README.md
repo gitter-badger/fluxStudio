@@ -32,11 +32,11 @@ rapid development framework with react, baobab,express,hotswap,webpack,babel&amp
   build server
 
 - npm run static
-- 
+
   build server and generate static files
 
-#goals
-There is still much todo and every contribution is welcome.
+#Todo
+
 - increase modularity 
 - introduce a pluginssystem
   currently there are many dependencies and many features which not everyone needs. introducing a pluginsystem may reduce the complexity and size of this project
