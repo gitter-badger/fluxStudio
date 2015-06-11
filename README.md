@@ -10,6 +10,20 @@ rapid development framework with react, baobab,express,hotswap,webpack,babel&amp
 - flux  : see https://facebook.github.io/react/docs/flux-overview.html
 - baobab: handle and track your apps statechanges with immutable data structures.
 
+#commands
+- git clone https://github.com/nikhedonia/fluxStudio.git
+  copy current version
+- npm i
+  install server dependencies
+- npm run dev 
+  build & run server in development mode 
+- npm run start 
+  build & run server in production mode
+- npm run build 
+  build server
+- npm run static
+  build server and generate static files
+
 #goals
 There is still much todo and every contribution is welcome.
 - increase modularity 
