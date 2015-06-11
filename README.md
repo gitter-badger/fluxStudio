@@ -20,7 +20,9 @@ There is still much todo and every contribution is welcome.
   examples
   ```sh 
   $ reactStudio create myTodoApp // create boilerplate
+  
   $ reactStudio generate static  // create static version of the app
+  
   $ reactStudio run dev . // run current project in development mode
   ``` 
 - write tests
